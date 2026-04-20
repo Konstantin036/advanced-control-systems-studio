@@ -35,7 +35,7 @@ A professional-grade PID controller simulator and control systems analysis tool 
 ### Quick Setup
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/advanced-control-systems-studio.git
+git clone https://github.com/Konstantin036/advanced-control-systems-studio.git
 cd advanced-control-systems-studio
 ```
 
