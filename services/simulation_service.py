@@ -32,6 +32,21 @@ class SimulationService:
         self.simulation_start_time = None
         self.data_points_sent = 0
         
+        # Rate limiting attributes
+        self.last_tuning_start = None
+        self.last_pid_start = None
+        
+        # Performance tracking
+        self.performance_metrics = {
+            'iae': 0,
+            'ise': 0,
+            'itae': 0,
+            'overshoot': 0,
+            'settling_time': 0,
+            'rise_time': 0,
+            'steady_state_error': 0
+        }
+        
         logger.info("SimulationService initialized")
     
     def get_timestamp(self) -> str:
@@ -355,6 +370,15 @@ class SimulationService:
             }
         except (KeyError, ValueError, TypeError) as e:
             raise ValueError(f"Invalid PID parameters: {str(e)}")
+    
+    def get_performance_metrics(self) -> Dict:
+        """Get current performance metrics."""
+        return {
+            'current_metrics': self.performance_metrics,
+            'simulation_time': time.time() - self.simulation_start_time if self.simulation_start_time else 0,
+            'data_points_sent': self.data_points_sent,
+            'is_running': self.is_running
+        }
     
     def _log_simulation_stats(self):
         """Log simulation performance statistics."""
